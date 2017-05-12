@@ -1,21 +1,23 @@
 package com.qrcodeauth.service;
 
+import com.google.zxing.ChecksumException;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
 import com.qrcodeauth.utils.QRCodeUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
+import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
+import java.io.InputStream;
 
 public class Service {
 
-	public File getQRCode(String inputUUID) throws Exception {
-
-		UUID uuid = UUID.fromString(inputUUID);
-
-
-		BufferedImage image = QRCodeUtils.generateQRCode(uuid);
+	public File getQRCode() throws Exception {
+		BufferedImage image = QRCodeUtils.generateQRCode();
 		File myNewPNGFile = new File("ImageAsPNG.png");
 		if (image != null) {
 			ImageIO.write(image, "png", myNewPNGFile);
@@ -23,5 +25,18 @@ public class Service {
 
 		return myNewPNGFile;
 
+	}
+
+	public String decryptQRCode(MultipartBody multipartBody) throws IOException, FormatException, ChecksumException, NotFoundException {
+		for (Attachment attachment : multipartBody.getAllAttachments()) {
+			if ("file".equalsIgnoreCase(attachment.getContentDisposition().getParameter("name"))) {
+				return decryptQRCode(attachment.getDataHandler().getInputStream());
+			}
+		}
+		return StringUtils.EMPTY;
+	}
+
+	private String decryptQRCode(InputStream inputStream) throws FormatException, ChecksumException, NotFoundException, IOException {
+		return QRCodeUtils.decryptQRCode(inputStream);
 	}
 }
