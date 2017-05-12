@@ -10,9 +10,10 @@ import java.util.UUID;
 
 public class Service {
 
-	public File getQRCode(String inputUUID) throws IOException {
+	public File getQRCode(String inputUUID) throws Exception {
 
 		UUID uuid = UUID.fromString(inputUUID);
+
 
 		BufferedImage image = QRCodeUtils.generateQRCode(uuid);
 		File myNewPNGFile = new File("ImageAsPNG.png");

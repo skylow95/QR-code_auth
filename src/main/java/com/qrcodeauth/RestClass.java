@@ -21,7 +21,7 @@ public class RestClass {
 	@GET
 	@Path("/create-qr-code")
 	@Produces("image/png")
-	public Response getQRCodeImage(@QueryParam("uuid") String uuid) throws IOException {
+	public Response getQRCodeImage(@QueryParam("uuid") String uuid) throws Exception {
 		Response.ResponseBuilder ok = Response.ok(service.getQRCode(uuid));
 		ok.header("Content-Disposition", "attachment; filename=image.png");
 		return ok.build();

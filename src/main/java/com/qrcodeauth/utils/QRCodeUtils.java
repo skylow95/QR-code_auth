@@ -1,21 +1,30 @@
 package com.qrcodeauth.utils;
 
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.ChecksumException;
 import com.google.zxing.EncodeHintType;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class QRCodeUtils {
 
-	public static BufferedImage generateQRCode(UUID uuid) {
+	public static BufferedImage generateQRCode(UUID uuid) throws Exception {
 
 		int size = 250;
 		try {
@@ -23,6 +32,8 @@ public class QRCodeUtils {
 			Map<EncodeHintType, Object> hintMap = new EnumMap<EncodeHintType, Object>(EncodeHintType.class);
 			hintMap.put(EncodeHintType.CHARACTER_SET, "UTF-8");
 			hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+			Integer lengthOTP = (int) (Math.random() * 36);
+			Integer sessionKey = (int) (Math.random() * 100);
 
 			QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
@@ -51,6 +62,13 @@ public class QRCodeUtils {
 					}
 				}
 			}
+
+			String encrypt = RSAUtils.encrypt(uuid.toString(), RSAUtils.pair.getPublic());
+			String decrypt = RSAUtils.decrypt(encrypt, RSAUtils.pair.getPrivate());
+
+			System.out.println(uuid.toString());
+			System.out.println(decrypt);
+			System.out.println(decrypt.equals(uuid.toString()));
 
 			return image;
 
