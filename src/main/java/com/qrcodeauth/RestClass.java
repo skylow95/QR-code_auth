@@ -3,8 +3,11 @@ package com.qrcodeauth;
 import com.google.zxing.ChecksumException;
 import com.google.zxing.FormatException;
 import com.google.zxing.NotFoundException;
+import com.qrcodeauth.dto.UserCheckRestDto;
 import com.qrcodeauth.service.Service;
+import com.qrcodeauth.service.UserCheckService;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -14,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @Path("/rest")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -21,6 +25,8 @@ import java.io.IOException;
 public class RestClass {
 
 	private Service service = new Service();
+	private UserCheckService userCheckService = new UserCheckService();
+
 
 	@GET
 	@Path("/create-qr-code")
@@ -32,9 +38,15 @@ public class RestClass {
 	}
 
 	@POST
-	@Path("/check-qr-code")
+	@Path("/decrypt-qr-code")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response checkQRCode(MultipartBody multipartBody) throws FormatException, ChecksumException, NotFoundException, IOException {
+	public Response decryptQRCode(MultipartBody multipartBody) throws Exception {
 		return Response.ok(service.decryptQRCode(multipartBody)).build();
+	}
+
+	@POST
+	@Path("/user-check")
+	public Response checkUser(UserCheckRestDto request) throws NoSuchAlgorithmException {
+		return Response.ok(userCheckService.checkUser(request)).build();
 	}
 }

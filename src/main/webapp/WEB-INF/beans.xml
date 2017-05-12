@@ -10,6 +10,9 @@
 	http://cxf.apache.org/jaxrs
 	http://cxf.apache.org/schemas/jaxrs.xsd">
 
+    <bean id="service" class="com.qrcodeauth.service.Service"/>
+    <bean id="userCheckService" class="com.qrcodeauth.service.UserCheckService"/>
+
 
     <!-- A simple bean definition -->
     <bean id="jacksonMapper" class="com.qrcodeauth.provider.JacksonObjectMapper" />

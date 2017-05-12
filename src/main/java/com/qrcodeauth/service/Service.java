@@ -27,16 +27,17 @@ public class Service {
 
 	}
 
-	public String decryptQRCode(MultipartBody multipartBody) throws IOException, FormatException, ChecksumException, NotFoundException {
+	public String decryptQRCode(MultipartBody multipartBody) throws Exception {
 		for (Attachment attachment : multipartBody.getAllAttachments()) {
 			if ("file".equalsIgnoreCase(attachment.getContentDisposition().getParameter("name"))) {
 				return decryptQRCode(attachment.getDataHandler().getInputStream());
 			}
 		}
+
 		return StringUtils.EMPTY;
 	}
 
-	private String decryptQRCode(InputStream inputStream) throws FormatException, ChecksumException, NotFoundException, IOException {
+	private String decryptQRCode(InputStream inputStream) throws Exception {
 		return QRCodeUtils.decryptQRCode(inputStream);
 	}
 }
