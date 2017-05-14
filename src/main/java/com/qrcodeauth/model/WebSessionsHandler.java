@@ -56,5 +56,9 @@ public class WebSessionsHandler {
 			qrSessionsMap.remove(qrCode);
 		}
 	}
+
+	public Map<String, WebSession> getQrSessionsMap() {
+		return qrSessionsMap;
+	}
 }
 

@@ -1,21 +1,26 @@
 package com.qrcodeauth.service;
 
 import com.qrcodeauth.dto.UserCheckRestDto;
-import com.qrcodeauth.model.AuthincationModel;
-import com.qrcodeauth.utils.HashUtils;
-import org.apache.commons.codec.binary.Base64;
+import com.qrcodeauth.model.WebSessionsHandler;
+import com.qrcodeauth.utils.RSAUtils;
+import org.apache.xml.security.exceptions.Base64DecodingException;
+import org.apache.xml.security.utils.Base64;
 
-import java.nio.charset.Charset;
+import javax.websocket.Session;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 public class UserCheckService {
 
-	public Boolean checkUser(UserCheckRestDto request) throws NoSuchAlgorithmException {
+	public Boolean checkUser(UserCheckRestDto request) throws NoSuchAlgorithmException, Base64DecodingException, UnsupportedEncodingException {
 		String key = request.getKey();
-		String hashedValue = HashUtils.hashedValue(AuthincationModel.getSessionKey().toString());
-		byte[] bytes = hashedValue.getBytes(Charset.forName("UTF-8"));
-		String hashedKey = Base64.encodeBase64String(bytes);
-		hashedKey = hashedKey.substring(0, AuthincationModel.getLengthOTP() - 1);
+		String token = request.getToken();
 
-		return hashedKey.equalsIgnoreCase(key);
+		byte[] bytes = Base64.decode(key);
+		String decryptedKey = new String(bytes, RSAUtils.UTF_8);
+		Session session = (Session) WebSessionsHandler.getInstance().getQrSessionsMap().get(decryptedKey);
+		if (session != null) {
+
+		}
+		return false;
 	}
 }

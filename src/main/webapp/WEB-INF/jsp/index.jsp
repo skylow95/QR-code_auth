@@ -10,7 +10,7 @@
 <head>
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../websocket.js"></script>
+    <script type="text/javascript" src="../js/websocket.js"></script>
 </head>
 <body>
 <h1>TEST</h1>
