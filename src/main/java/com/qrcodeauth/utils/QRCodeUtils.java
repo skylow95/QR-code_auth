@@ -33,7 +33,7 @@ public class QRCodeUtils {
 		int size = 250;
 
 		try {
-			Map<EncodeHintType, Object> hintMap = new EnumMap<>(EncodeHintType.class);
+			Map<EncodeHintType, Object> hintMap = new EnumMap<EncodeHintType, Object>(EncodeHintType.class);
 			hintMap.put(EncodeHintType.CHARACTER_SET, "UTF-8");
 			hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
 
@@ -83,7 +83,7 @@ public class QRCodeUtils {
 
 	public static String decryptQRCode(InputStream inputStream)
 			throws FormatException, ChecksumException, NotFoundException, IOException {
-		Map<DecodeHintType, Object> hintMap = new EnumMap<>(DecodeHintType.class);
+		Map<DecodeHintType, Object> hintMap = new EnumMap<DecodeHintType, Object>(DecodeHintType.class);
 		hintMap.put(DecodeHintType.CHARACTER_SET, "UTF-8");
 		QRCodeReader qrCodeReader = new QRCodeReader();
 

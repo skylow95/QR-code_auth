@@ -1,5 +1,7 @@
 package com.qrcodeauth.utils;
 
+import org.apache.commons.codec.binary.Base64;
+
 import javax.crypto.Cipher;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -7,7 +9,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.util.Base64;
 
 public class RSAUtils {
 
@@ -31,11 +32,11 @@ public class RSAUtils {
 
 		byte[] cipherText = encryptCipher.doFinal(plainText.getBytes(UTF_8));
 
-		return Base64.getEncoder().encodeToString(cipherText);
+		return Base64.encodeBase64String(cipherText);
 	}
 
 	public static String decrypt(String cipherText, PrivateKey privateKey) throws Exception {
-		byte[] bytes = Base64.getDecoder().decode(cipherText);
+		byte[] bytes = Base64.decodeBase64(cipherText);
 
 		Cipher decriptCipher = Cipher.getInstance("RSA");
 		decriptCipher.init(Cipher.DECRYPT_MODE, privateKey);
