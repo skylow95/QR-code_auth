@@ -1,10 +1,5 @@
-/**
- * Created by bogdan on 5/13/17.
- */
-$(document).ready(function(){
-    console.log("Starting WhatsApp Clone");
-    initWebSocket();
-});
+console.log("Starting WhatsApp Clone");
+initWebSocket();
 
 function initWebSocket() {
     var domainName = document.location.host + document.location.pathname;
@@ -29,28 +24,28 @@ function initWebSocket() {
 
             var qrUuid = rawdata.split("###")[1];
             console.log("UUID for qr received: " + qrUuid);
-            $("#qrcode").attr("src", "http://" + domainName + "/services/json/rest/create-qr-code" + qrUuid);
+            $("#qrcode").attr("src", "http://" + domainName + "services/json/rest/create-qr-code?id=" + qrUuid);
 
-        // } else if (rawdata.startsWith("authed###")) {
-        //
-        //     username = rawdata.split("###")[1];
-        //     console.log("Auth done using mobile for user: " + username);
-        //     qrcodeareaDiv.hide();
-        //     chatareaDiv.css('display', 'block');
-        //
-        // } else if (rawdata.startsWith("msg###")) {
-        //
-        //     var user = rawdata.split("###")[1];
-        //     var msg = rawdata.split("###")[2];
-        //     console.log("message from : " + user + " with data: " + msg + " \n");
-        //
-        //     if (username === user) {
-        //         // FROM ME
-        //         chatList.append("<div class=\"list-group-item list-group-item-success\">I said:" + msg + "</div>");
-        //     } else {
-        //         // FROM OTHER PEOPLE
-        //         chatList.append("<div class=\"list-group-item list-group-item-warning\" style=\"text-align: right\">" + user + " said:" + msg + "</div>");
-        //     }
+            // } else if (rawdata.startsWith("authed###")) {
+            //
+            //     username = rawdata.split("###")[1];
+            //     console.log("Auth done using mobile for user: " + username);
+            //     qrcodeareaDiv.hide();
+            //     chatareaDiv.css('display', 'block');
+            //
+            // } else if (rawdata.startsWith("msg###")) {
+            //
+            //     var user = rawdata.split("###")[1];
+            //     var msg = rawdata.split("###")[2];
+            //     console.log("message from : " + user + " with data: " + msg + " \n");
+            //
+            //     if (username === user) {
+            //         // FROM ME
+            //         chatList.append("<div class=\"list-group-item list-group-item-success\">I said:" + msg + "</div>");
+            //     } else {
+            //         // FROM OTHER PEOPLE
+            //         chatList.append("<div class=\"list-group-item list-group-item-warning\" style=\"text-align: right\">" + user + " said:" + msg + "</div>");
+            //     }
 
         } else {
             console.error("Unknown Stuff: " + rawdata);
@@ -63,5 +58,3 @@ function initWebSocket() {
         console.error("Error: " + evt);
     };
 }
-
-

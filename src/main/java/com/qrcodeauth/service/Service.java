@@ -12,8 +12,8 @@ import java.io.InputStream;
 
 public class Service {
 
-	public File getQRCode() throws Exception {
-		BufferedImage image = QRCodeUtils.generateQRCode();
+	public File getQRCode(String value) throws Exception {
+		BufferedImage image = QRCodeUtils.generateQRCode(value);
 		File myNewPNGFile = new File("ImageAsPNG.png");
 		if (image != null) {
 			ImageIO.write(image, "png", myNewPNGFile);

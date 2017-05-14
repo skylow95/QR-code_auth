@@ -16,7 +16,7 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.qrcodeauth.model.AuthincationModel;
+import org.apache.commons.codec.binary.Base64;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class QRCodeUtils {
 
-	public static BufferedImage generateQRCode() throws Exception {
+	public static BufferedImage generateQRCode(String plainText) throws Exception {
 		BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
 		int size = 250;
 
@@ -37,14 +37,7 @@ public class QRCodeUtils {
 			hintMap.put(EncodeHintType.CHARACTER_SET, "UTF-8");
 			hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
 
-			Integer lengthOTP = (int) (Math.random() * 10) + 1;
-			Integer sessionKey = (int) (Math.random() * 100);
-
-			new AuthincationModel(sessionKey, lengthOTP);
-
-			String plainText = AuthincationModel.getLengthOTP().toString() + AuthincationModel.getSessionKey().toString();
-
-			String encrypt = RSAUtils.encrypt(plainText, RSAUtils.pair.getPublic());
+			String encrypt = Base64.encodeBase64String(plainText.getBytes(RSAUtils.UTF_8));
 			System.out.println(encrypt);
 
 			QRCodeWriter qrCodeWriter = new QRCodeWriter();

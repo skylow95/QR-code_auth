@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.security.NoSuchAlgorithmException;
@@ -26,8 +27,8 @@ public class RestClass {
 	@GET
 	@Path("/create-qr-code")
 	@Produces("image/png")
-	public Response getQRCodeImage() throws Exception {
-		Response.ResponseBuilder ok = Response.ok(service.getQRCode());
+	public Response getQRCodeImage(@QueryParam("id") String value) throws Exception {
+		Response.ResponseBuilder ok = Response.ok(service.getQRCode(value));
 		ok.header("Content-Disposition", "attachment; filename=image.png");
 		return ok.build();
 	}
