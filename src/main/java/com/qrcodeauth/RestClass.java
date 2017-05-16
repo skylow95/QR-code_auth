@@ -4,6 +4,7 @@ import com.qrcodeauth.dto.UserCheckRestDto;
 import com.qrcodeauth.service.Service;
 import com.qrcodeauth.service.UserCheckService;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
+import org.apache.xml.security.exceptions.Base64DecodingException;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 @Path("/rest")
@@ -40,9 +42,9 @@ public class RestClass {
 		return Response.ok(service.decryptQRCode(multipartBody)).build();
 	}
 
-	@POST
-	@Path("/user-check")
-	public Response checkUser(UserCheckRestDto request) throws NoSuchAlgorithmException {
-		return Response.ok(userCheckService.checkUser(request)).build();
+	@GET
+	@Path("/user-login")
+	public Response checkUser(@QueryParam("key") String key, @QueryParam("token") String token) throws NoSuchAlgorithmException, Base64DecodingException, IOException {
+		return Response.ok(userCheckService.checkUser(key, token)).build();
 	}
 }
