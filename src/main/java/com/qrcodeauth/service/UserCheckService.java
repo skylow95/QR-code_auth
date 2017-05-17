@@ -1,6 +1,5 @@
 package com.qrcodeauth.service;
 
-import com.qrcodeauth.dto.UserCheckRestDto;
 import com.qrcodeauth.model.WebSessionsHandler;
 import com.qrcodeauth.utils.RSAUtils;
 import org.apache.xml.security.exceptions.Base64DecodingException;
@@ -8,7 +7,6 @@ import org.apache.xml.security.utils.Base64;
 
 import javax.websocket.Session;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 public class UserCheckService {
 

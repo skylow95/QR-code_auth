@@ -9,9 +9,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-/**
- * Created by Bogdan on 16.05.2017.
- */
 public class FBConnection {
 	public static final String FB_APP_ID = "220462511780235";
 	public static final String FB_APP_SECRET = "1029eb5a7e846cb445ec28c3db6aa44f";

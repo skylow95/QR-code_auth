@@ -30,6 +30,17 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Main</servlet-name>
+        <jsp-file>/jsp/main.jsp</jsp-file>
+        <servlet-class>com.qrcodeauth.servlet.MainPageServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Main</servlet-name>
+        <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>XMLServer</servlet-name>
         <url-pattern>/services/*</url-pattern>

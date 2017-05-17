@@ -4,6 +4,7 @@ import com.qrcodeauth.facebookconfig.FBConnection;
 import com.qrcodeauth.facebookconfig.FBGraph;
 import org.apache.commons.lang.StringUtils;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
@@ -27,22 +28,22 @@ public class AuthFacebookServlet extends HttpServlet {
 			throw new RuntimeException("Token is absent.");
 		}
 
-//		FBConnection fbConnection = new FBConnection(accessToken);
+		//		FBConnection fbConnection = new FBConnection(accessToken);
 		HttpSession httpSession = req.getSession();
 		FBGraph fbGraph = new FBGraph(accessToken);
 		String graph = fbGraph.getFBGraph();
 		Map<String, String> fbProfileData = fbGraph.getGraphData(graph);
-		String userName = fbProfileData.get("first_name");
+		String userName = fbProfileData.get("name");
 		//		ServletOutputStream out = res.getOutputStream();
 		//		out.println("<h1>Facebook Login using Java</h1>");
 		//		out.println("<h2>Application Main Menu</h2>");
-//		out.println("<div>Welcome " + userName);
-//		out.println("<div>Your Email: " + fbProfileData.get("email"));
-//		out.println("<div>You are " + fbProfileData.get("gender"));
+		//		out.println("<div>Welcome " + userName);
+		//		out.println("<div>Your Email: " + fbProfileData.get("email"));
+		//		out.println("<div>You are " + fbProfileData.get("gender"));
 		httpSession.setAttribute("user", userName);
 		httpSession.setMaxInactiveInterval(30 * 60);
 		Cookie cookie = new Cookie("user", userName);
 		res.addCookie(cookie);
-		res.sendRedirect(res.encodeURL("/jsp/main.jsp"));
+		res.sendRedirect("http://localhost:8080/main");
 	}
 }

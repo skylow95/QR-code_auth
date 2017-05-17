@@ -30,17 +30,10 @@
 
             function sendRequestToAuthUser(token) {
                 var url = 'http://' + domainName + 'login';
-                $.ajax({
+                $.get({
                     'url': url,
-                    'type': 'GET',
                     'data': {
                         'token': token
-                    },
-                    'success': function (data) {
-                        //clear input field value
-                    },
-                    'error' : function (data) {
-                        alert(data);
                     }
                 });
             }

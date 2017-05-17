@@ -1,6 +1,5 @@
 package com.qrcodeauth;
 
-import com.qrcodeauth.dto.UserCheckRestDto;
 import com.qrcodeauth.service.Service;
 import com.qrcodeauth.service.UserCheckService;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
