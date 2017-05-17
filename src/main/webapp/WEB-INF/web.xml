@@ -32,8 +32,7 @@
 
     <servlet>
         <servlet-name>Main</servlet-name>
-        <jsp-file>/jsp/main.jsp</jsp-file>
-        <servlet-class>com.qrcodeauth.servlet.MainPageServlet</servlet-class>
+        <jsp-file>/WEB-INF/jsp/main.jsp</jsp-file>
     </servlet>
 
     <servlet-mapping>

@@ -11,7 +11,7 @@
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
-        console.log("Starting WhatsApp Clone");
+        const protocol = 'http://';
         initWebSocket();
 
         function initWebSocket() {
@@ -29,13 +29,7 @@
             };
 
             function sendRequestToAuthUser(token) {
-                var url = 'http://' + domainName + 'login';
-                $.get({
-                    'url': url,
-                    'data': {
-                        'token': token
-                    }
-                });
+                window.location.href = protocol + domainName + 'login?token=' + token;
             }
 
             websocket.onmessage = function (evt) {
