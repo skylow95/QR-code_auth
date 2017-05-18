@@ -5,7 +5,7 @@
          version="3.1">
     
     <welcome-file-list>
-        <welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
+        <welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
     </welcome-file-list>
 
     <servlet>
@@ -21,23 +21,23 @@
     </servlet>
 
     <servlet>
-        <servlet-name>Login</servlet-name>
+        <servlet-name>FaceBookAuthServlet</servlet-name>
         <servlet-class>com.qrcodeauth.servlet.AuthFacebookServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <servlet-name>FaceBookAuthServlet</servlet-name>
+        <url-pattern>/login-facebook</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Main</servlet-name>
+        <servlet-name>MainPage</servlet-name>
         <jsp-file>/WEB-INF/jsp/main.jsp</jsp-file>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Main</servlet-name>
-        <url-pattern>/main</url-pattern>
+        <servlet-name>MainPage</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

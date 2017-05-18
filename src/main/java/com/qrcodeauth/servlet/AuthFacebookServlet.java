@@ -1,12 +1,9 @@
 package com.qrcodeauth.servlet;
 
-import com.qrcodeauth.facebookconfig.FBConnection;
 import com.qrcodeauth.facebookconfig.FBGraph;
 import org.apache.commons.lang.StringUtils;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +32,7 @@ public class AuthFacebookServlet extends HttpServlet {
 		httpSession.setMaxInactiveInterval(30 * 60);
 		Cookie cookie = new Cookie("user", userName);
 		response.addCookie(cookie);
-		response.sendRedirect("http://localhost:8080/main");
+		String url = "http://" + request.getServerName() + ":" + request.getServerPort() + "/home";
+		response.sendRedirect(response.encodeURL(url));
 	}
 }

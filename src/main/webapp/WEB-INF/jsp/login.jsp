@@ -12,10 +12,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
         const protocol = 'http://';
+        const domainName = document.location.host + document.location.pathname;
         initWebSocket();
 
         function initWebSocket() {
-            var domainName = document.location.host + document.location.pathname;
             var wsUri = "ws://" + domainName + "action";
             var websocket = new WebSocket(wsUri);
 
@@ -29,23 +29,21 @@
             };
 
             function sendRequestToAuthUser(token) {
-                window.location.href = protocol + domainName + 'login?token=' + token;
+                window.location.href = protocol + domainName + 'login-facebook?token=' + token;
             }
 
             websocket.onmessage = function (evt) {
-
                 var rawdata = evt.data;
 
                 if (rawdata.startsWith("wsready###")) {
-                    var qrUuid = rawdata.split("###")[1];
-                    console.log("UUID for qr received: " + qrUuid);
-                    $("#qrcode").attr("src", "http://" + domainName + "services/json/rest/create-qr-code?id=" + qrUuid);
+                    var code = rawdata.split("###")[1];
+                    console.log("qr received: " + code);
+                    $("#qrcode").attr("src", protocol + domainName + "services/json/rest/create-qr-code?id=" + code);
                 } else if (rawdata.startsWith("wsloginuser###")) {
                     var token = rawdata.split("###")[1];
                     sendRequestToAuthUser(token);
                 }
             };
-
 
             websocket.onerror = function (evt) {
                 console.log("Error: " + evt);
