@@ -119,7 +119,8 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-         
+    <build>
+    <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory>      
          <plugins>
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
@@ -127,5 +128,5 @@
         <version>${appengine-maven-plugin-version}</version>
       </plugin>
     </plugins>
-
+         </build>
 </project>
