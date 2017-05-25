@@ -119,5 +119,13 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+         
+         <plugins>
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>appengine-maven-plugin</artifactId>
+        <version>${appengine-maven-plugin-version}</version>
+      </plugin>
+    </plugins>
 
 </project>
